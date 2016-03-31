@@ -18,6 +18,59 @@
             context.fillStyle = "blue";
             context.fillRect(300,300,600,400);
             
+            function Paddle(x_position, y_position, width, height) {
+               this.x_position = x_position;
+               this.y_position = y_position;
+               this.width = width;
+               this.height = height;
+            };
+            
+            function Player() {
+               this.paddle =  new Paddle(150, 225, 20, 50);
+            };
+            
+            function Computer() {
+                this.paddle = new Paddle(650, 725, 20, 50);
+            };
+            
+            function Ball(x_position, y_position) {
+                this.x_position = x_position;
+                this.y_position = y_position;
+            };
+            
+            Paddle.prototype.render = function() {
+                context.fillStyle = "purple";
+                context.fillRect = (this.x_position, this.y_position, this.width, this.height);
+            };
+            
+            Ball.prototype.render = function() {
+                context.arc(this.x_position, this.y_position, this.radius, 0, 2 * Math.PI, false) //arc (x,y, radius, startAngle, anticlockwise?)
+                context.fillStyle = 'red';
+                context.fill();
+            };
+            
+            Player.prototype.render = function() {
+                this.paddle.render();
+            };
+            
+            Computer.prototype.render = function() {
+                this.paddle.render();
+            };
+            
+            var player = new Player();
+            var zeus = new Computer();
+            var ball = new Ball(300,0);
+            
+            var render = function() {
+                player.render();
+                zeus.render();
+                ball.render();
+            };
+            
+            window.onload = render;
+                
+            
+            
         
         </script>
     </body>
