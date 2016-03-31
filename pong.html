@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="pongTable" width="1200" height="900" style="border:1px solid blue;"></canvas>
+        
+        <script>
+           
+            var canvas = document.getElementById("pongTable"); //DOM node in html
+            var context = canvas.getContext("2d"); //object with methods & properties used to render graphics in canvas element.
+            context.fillStyle = "blue";
+            context.fillRect(300,300,600,400);
+            
+        
+        </script>
+    </body>
+</html>
