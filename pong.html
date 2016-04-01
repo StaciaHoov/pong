@@ -26,27 +26,36 @@
             };
             
             function Player() {
-               this.paddle =  new Paddle(150, 225, 20, 50);
+               this.paddle =  new Paddle(850, 465, 10, 70);
             };
             
             function Computer() {
-                this.paddle = new Paddle(650, 725, 20, 50);
+                this.paddle = new Paddle(350, 465, 10, 70);
             };
             
-            function Ball(x_position, y_position) {
+            function Ball(x_position, y_position, radius) {
                 this.x_position = x_position;
                 this.y_position = y_position;
+                this.radius = radius;
             };
             
             Paddle.prototype.render = function() {
+                context.beginPath();
                 context.fillStyle = "purple";
-                context.fillRect = (this.x_position, this.y_position, this.width, this.height);
+                context.fillRect(this.x_position, this.y_position, this.width, this.height);
+                context.lineWidth = 7;
+                context.strokeStyle = 'black';
+                context.stroke();
             };
             
             Ball.prototype.render = function() {
-                context.arc(this.x_position, this.y_position, this.radius, 0, 2 * Math.PI, false) //arc (x,y, radius, startAngle, anticlockwise?)
-                context.fillStyle = 'red';
+                context.beginPath();
+                context.arc(this.x_position, this.y_position, this.radius, 0, 2 * Math.PI, false); //arc (x,y, radius, startAngle, anticlockwise?)
+                context.fillStyle = 'yellow';
                 context.fill();
+                context.lineWidth =2;
+                context.strokeStyle = '#003300';
+                context.stroke();
             };
             
             Player.prototype.render = function() {
@@ -59,7 +68,7 @@
             
             var player = new Player();
             var zeus = new Computer();
-            var ball = new Ball(300,0);
+            var ball = new Ball(500, 500, 7);
             
             var render = function() {
                 player.render();
@@ -67,11 +76,7 @@
                 ball.render();
             };
             
-            window.onload = render;
-                
-            
-            
-        
+            window.onload = render();
         </script>
     </body>
 </html>
