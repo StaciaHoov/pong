@@ -100,6 +100,7 @@
     };
    
     Ball.prototype.render = function() {
+        context.beginPath();
         context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false); //arc (x,y, radius, startAngle, anticlockwise?)
         context.fillStyle = 'yellow';
         context.fill();
