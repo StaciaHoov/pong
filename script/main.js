@@ -1,8 +1,6 @@
 (function() {  
     var canvas = document.getElementById("pongTable"); //DOM node in html
     var context = canvas.getContext("2d"); //object with methods & properties used to render graphics in canvas element.
-    context.fillStyle = "#11B1FF";
-    context.fillRect(300,300,600,400);
     
     var player = new Player();
     var computer = new Computer();
@@ -17,6 +15,9 @@
         function(callback) {window.setTimeout(callback, 1000/60)};
    
     var render = function() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = "#11B1FF";
+        context.fillRect(300,300,600,400);
         player.render();
         computer.render();
         ball.render();
@@ -95,8 +96,8 @@
         this.x = x;
         this.y = y;
         this.radius = 7;
-        this.x_speed = Math.random() * 10;
-        this.y_speed = Math.random() * 10;
+        this.x_speed = Math.random()*2 ;
+        this.y_speed = Math.random()*3 ;
     };
    
     Ball.prototype.render = function() {
@@ -117,7 +118,7 @@
         if (this.x < 300 || this.x > 900) {
             this.x = 600;
             this.y = 500;
-            this.x_speed = 3;
+            this.x_speed = 2;
             this.y_speed = 0;
         }
         
