@@ -5,6 +5,7 @@
     var player = new Player();
     var computer = new Computer();
     var ball = new Ball(600, 500);
+    var radius = 5;
     var keysDown = {};
     
     var animate = window.requestAnimationFrame ||
@@ -95,14 +96,13 @@
     function Ball(x, y) {
         this.x = x;
         this.y = y;
-        this.radius = 7;
         this.x_speed = Math.random()*2 ;
         this.y_speed = Math.random()*3 ;
     };
    
     Ball.prototype.render = function() {
         context.beginPath();
-        context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false); //arc (x,y, radius, startAngle, anticlockwise?)
+        context.arc(this.x, this.y, radius, 0, 2 * Math.PI, false); //arc (x,y, radius, startAngle, anticlockwise?)
         context.fillStyle = 'yellow';
         context.fill();
     };
@@ -110,27 +110,34 @@
     Ball.prototype.update = function() {
         this.x += this.x_speed;
         this.y += this.y_speed;
-        this.x_left = this.x - 3.5;
-        this.x_right = this.x + 3.5;
-        this.y_top = this.y - 3.5;
-        this.y_bottom = this.y + 3.5;
         
         if (this.x < 300 || this.x > 900) {
             this.x = 600;
             this.y = 500;
             this.x_speed = 2;
-            this.y_speed = 0;
+            this.y_speed = 3;
         }
         
-        if (this.y - 3.5 < 300) {
-            this.y = 303.5;
+        if (this.y - radius < 300) {
+            this.y = 300 + radius;
             this.y_speed = -this.y_speed;
-        } else if (this.y + 3.5 > 700) {
-            this.y = 696.5;
+        } else if (this.y + radius > 700) {
+            this.y = 700 - radius;
             this.y_speed = - this.y_speed;
         }
         
-        
+        if (this.x + radius > (player.paddle.x) 
+            && (this.y - radius) > player.paddle.y 
+            && (this.y + radius) < (player.paddle.y + player.paddle.height)) {
+                this.x_speed = - this.x_speed;
+                this.y_speed = - this.y_speed;
+            }
+        if (this.x - radius < (computer.paddle.x + computer.paddle.width)
+            && (this.y + radius > computer.paddle.y)
+            && (this.y - radius < computer.paddle.y + computer.paddle.height)) {
+                this.x_speed = - this.x_speed;
+                this.y_speed = - this.y_speed;
+            }
     };
     
     window.addEventListener("keydown", function(event) {
