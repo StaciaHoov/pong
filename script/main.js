@@ -1,13 +1,18 @@
 (function() {  
     var canvas = document.getElementById("pongTable"); //DOM node in html
     var context = canvas.getContext("2d"); //object with methods & properties used to render graphics in canvas element.
-    
+    var context_height = 400;
+    var context_width = 600;
+    var context_x = 300;
+    var context_y = 100;
     var player = new Player();
     var computer = new Computer();
-    var ball = new Ball(600, 500);
+    var ball = new Ball(600, 300);
     var radius = 5;
     var keysDown = {};
-    
+    var computerScore = 0;
+    var playerScore = 0;
+
     var animate = window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
@@ -18,15 +23,16 @@
     var render = function() {
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.fillStyle = "#11B1FF";
-        context.fillRect(300,300,600,400);
+        context.fillRect(context_x, context_y, context_width, context_height);
         player.render();
         computer.render();
         ball.render();
     };
     
     var update = function() {
+        computer.update(ball);
         player.update();
-        ball.update();
+        ball.update(computer.paddle, player.paddle);
     }     
         
     function step() { //
@@ -54,16 +60,24 @@
         this.y += y;
         this.x_speed += x;
         this.y_speed += y;
-        if(this.y < 300) {
-            this.y = 300;
+        if(this.y < context_y) {
+            this.y = context_y;
             this.y_speed = 0;
-        } else if (this.y + this.height > 700) {
-            this.y = 700 - this.height;
+        } else if (this.y + this.height > context_y + context_height) {
+            this.y = context_y + context_height - this.height;
             this.y_speed = 0;
         };
-        console.log(this.x,this.y)
     };
     
+
+    function Player() {
+       this.paddle =  new Paddle(850, 265, 10, 70);
+    };
+    
+    Player.prototype.render = function() {
+        this.paddle.render();
+    };
+      
     Player.prototype.update = function() {
         for (var key in keysDown) {
             var value = Number(key);
@@ -76,28 +90,36 @@
             }
         }
     };
-
-    function Player() {
-       this.paddle =  new Paddle(850, 465, 10, 70);
-    };
     
-    Player.prototype.render = function() {
-        this.paddle.render();
-    };
-        
     function Computer() {
-        this.paddle = new Paddle(350, 465, 10, 70);
+        this.paddle = new Paddle(350, 265, 10, 70);
     };
     
     Computer.prototype.render = function() {
         this.paddle.render();
     };
+    
+    Computer.prototype.update = function(ball) {
+        var diff = -((this.paddle.y + this.paddle.height/2) - ball.y);
+        if (diff < 0 && diff < -4) {
+            diff = -5;
+        } else if (diff > 0 && diff > 4) {
+            diff = 5;
+        }
+        this.paddle.move(0, diff);
+        
+        if (this.paddle.y < 0) {
+            this.paddle.y = 0;
+        } else if (this.paddle.y + this.paddle.height > 500) {
+            this.paddle.y = 400 - this.paddle.height;
+        }
+    };
 
     function Ball(x, y) {
         this.x = x;
         this.y = y;
-        this.x_speed = Math.random()*2 ;
-        this.y_speed = Math.random()*3 ;
+        this.x_speed = 2 + Math.random();
+        this.y_speed = 1 + Math.random() ;
     };
    
     Ball.prototype.render = function() {
@@ -107,37 +129,49 @@
         context.fill();
     };
     
-    Ball.prototype.update = function() {
+    Ball.prototype.update = function(paddle1, paddle2) {
         this.x += this.x_speed;
         this.y += this.y_speed;
-        
-        if (this.x < 300 || this.x > 900) {
-            this.x = 600;
-            this.y = 500;
-            this.x_speed = 2;
-            this.y_speed = 3;
-        }
-        
-        if (this.y - radius < 300) {
-            this.y = 300 + radius;
-            this.y_speed = -this.y_speed;
-        } else if (this.y + radius > 700) {
-            this.y = 700 - radius;
+ 
+        if (this.y - radius < context_y) { // hitting top wall
+            this.y = context_y + radius;
+            this.y_speed = - this.y_speed;
+        } else if (this.y + radius > context_y + context_height) { // hitting bottom wall
+            this.y = context_y + context_height - radius;
             this.y_speed = - this.y_speed;
         }
         
-        if (this.x + radius > (player.paddle.x) 
-            && (this.y - radius) > player.paddle.y 
-            && (this.y + radius) < (player.paddle.y + player.paddle.height)) {
-                this.x_speed = - this.x_speed;
-                this.y_speed = - this.y_speed;
+        if (this.x < 300) {  // player scores
+            this.x = 600;
+            this.y = 300;
+            this.x_speed = 2 + Math.random();
+            this.y_speed = 1 + Math.random();
+            playerScore ++;
+            document.getElementById("playerScore").innerHTML = playerScore;
+        }
+        
+        if (this.x > 900) { // computer scores
+            this.x = 600;
+            this.y = 300;
+            this.x_speed = 2 + Math.random();
+            this.y_speed = 1 + Math.random();
+            computerScore ++;
+            document.getElementById("computerScore").innerHTML = computerScore;
+        }
+        
+         if (this.x - radius > 600) {
+            if (this.x + radius > paddle2.x && (this.y + radius < paddle2.y + paddle2.height) && (this.y - radius > paddle2.y )) {  // hitting player paddle
+                this.x_speed = - 3;
+                this.y_speed = -2;
+            }  
+        } else {
+            if (this.x - radius < (paddle1.x + paddle1.width)
+                && (this.y - radius > paddle1.y)
+                && (this.y + radius < paddle1.y + paddle1.height)) {
+                    this.x_speed = 3;
+                    this.y_speed = -1;
             }
-        if (this.x - radius < (computer.paddle.x + computer.paddle.width)
-            && (this.y + radius > computer.paddle.y)
-            && (this.y - radius < computer.paddle.y + computer.paddle.height)) {
-                this.x_speed = - this.x_speed;
-                this.y_speed = - this.y_speed;
-            }
+        }
     };
     
     window.addEventListener("keydown", function(event) {

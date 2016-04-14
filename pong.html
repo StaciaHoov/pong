@@ -5,11 +5,20 @@
             body {
                 margin: 0px;
                 padding: 0px;
+                background-color: gray;
             }
         </style>
     </head>
     <body>
-        <canvas id="pongTable" width="1200" height="900" style="border:1px solid blue;"></canvas>
+        <div class="header" style="width=100%;border:1px solid black;text-align:center;">
+            <h1> Bloc Pong</h1>
+            <h2>Computer Score: <span id="computerScore">0</span></h2>
+            <h2>Player Score: <span id="playerScore">0</span></h2>
+        </div>
+        <div id="canvas">
+            <canvas id="pongTable" width="1200" height="700"></canvas>
+        </div>
+        
         
         <script src="/script/main.js"></script>
     </body>
