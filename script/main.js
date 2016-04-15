@@ -1,10 +1,10 @@
 (function() {  
-    var canvas = document.getElementById("pongTable"); //DOM node in html
+    var canvas = document.getElementById("court-container"); //DOM node in html
     var context = canvas.getContext("2d"); //object with methods & properties used to render graphics in canvas element.
     var context_height = 400;
     var context_width = 600;
-    var context_x = 300;
-    var context_y = 100;
+    var context_x = 325;
+    var context_y = 75;
     var player = new Player();
     var computer = new Computer();
     var ball = new Ball(600, 300);
@@ -148,15 +148,31 @@
             this.y_speed = 1 + Math.random();
             playerScore ++;
             document.getElementById("playerScore").innerHTML = playerScore;
+            
+            if (playerScore > 2) {
+                document.getElementById("player-wins").style.display = "block";
+                playerScore = 0;
+                computerScore = 0;
+                document.getElementById("playerScore").innerHTML = playerScore;
+                document.getElementById("computerScore").innerHTML = playerScore;
+            }
         }
         
         if (this.x > 900) { // computer scores
             this.x = 600;
             this.y = 300;
-            this.x_speed = 2 + Math.random();
+            this.x_speed = -2 + Math.random();
             this.y_speed = 1 + Math.random();
             computerScore ++;
             document.getElementById("computerScore").innerHTML = computerScore;
+            
+            if (computerScore >= 2) {
+                document.getElementById("computer-wins").style.display = "block";
+                playerScore = 0;
+                computerScore = 0;
+                document.getElementById("playerScore").innerHTML = playerScore;
+                document.getElementById("computerScore").innerHTML = playerScore;
+            }
         }
         
          if (this.x - radius > 600) {

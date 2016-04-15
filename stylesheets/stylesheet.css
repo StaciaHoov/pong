@@ -1,0 +1,64 @@
+
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #bbb;
+    font-family: Geneva, sans-serif;
+}
+
+#court-container {
+    margin-left: 10px; 
+}
+
+.header {
+    width: 100%;
+    text-align: center;
+}
+
+.clear {
+    clear: both;
+}
+
+
+#computer-display {
+    border: 1px solid;
+    border-style: groove;
+    position: inline-block;
+    margin-left: 17%;
+    float: left;
+    width: 33%;
+}
+
+#player-display {
+    border: 1px solid;
+    border-style: groove;
+    position: inline-block;
+    width: 33%;
+    float: left;
+}
+
+#computerScore {
+    
+}
+
+#playerScore {
+    
+}
+
+#computer-wins {
+    text-align: center;
+    display: none;
+    color: red;
+    font-family: 'Bangers', cursive;
+    font-size: 55px;
+    letter-spacing: 3px;
+}
+
+#player-wins {
+    text-align: center;
+    display: none;
+    color: red;
+    font-family: 'Bangers', cursive;
+    font-size: 55px;
+    letter-spacing: 3px;
+}

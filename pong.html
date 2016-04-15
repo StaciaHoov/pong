@@ -1,23 +1,29 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <style>
-            body {
-                margin: 0px;
-                padding: 0px;
-                background-color: gray;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href ="stylesheets/stylesheet.css">
+        <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
     </head>
     <body>
-        <div class="header" style="width=100%;border:1px solid black;text-align:center;">
+        <div class="header">
             <h1> Bloc Pong</h1>
-            <h2>Computer Score: <span id="computerScore">0</span></h2>
-            <h2>Player Score: <span id="playerScore">0</span></h2>
+            <div id="computer-display">
+               <h2>Computer Score: <span id="computerScore">0</span></h2>
+            </div>
+                  
+            <div id="player-display">
+               <h2>Player Score: <span id="playerScore">0</span></h2>
+            </div>
+            <div class="clear"></div>
         </div>
+  
         <div id="canvas">
-            <canvas id="pongTable" width="1200" height="700"></canvas>
+            <canvas id="court-container" width="1250" height="500"></canvas>
         </div>
+        <div id="winner">
+            <h2 id="computer-wins">Game Over! <br>The Computer Wins!</h2>
+            <h2 id="player-wins">Game Over! <br>You WIN! </h2>
+        </div> 
         
         
         <script src="/script/main.js"></script>
