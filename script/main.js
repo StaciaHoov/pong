@@ -151,10 +151,16 @@
             playerScore ++;
             document.getElementById("playerScore").innerHTML = playerScore;
             
-            if (playerScore > 2) {
+            if (playerScore >= 11) {
                 document.getElementById("player-wins").style.display = "block";
                 playerScore = 0;
                 computerScore = 0;
+                this.x_speed = 0;
+                this.y_speed = 0;
+                player.paddle.x = 865;
+                player.paddle.y = 240;
+                computer.paddle.x = 375;
+                computer.paddle.y = 240;
                 document.getElementById("playerScore").innerHTML = playerScore;
                 document.getElementById("computerScore").innerHTML = playerScore;
             }
@@ -168,18 +174,22 @@
             computerScore ++;
             document.getElementById("computerScore").innerHTML = computerScore;
             
-            if (computerScore >= 2) {
+            if (computerScore >= 11) {
                 document.getElementById("computer-wins").style.display = "block";
                 playerScore = 0;
                 computerScore = 0;
                 this.x_speed = 0;
                 this.y_speed = 0;
+                player.paddle.x = 865;
+                player.paddle.y = 240;
+                computer.paddle.x = 375;
+                computer.paddle.y = 240;
                 document.getElementById("playerScore").innerHTML = playerScore;
                 document.getElementById("computerScore").innerHTML = playerScore;
             }
         }
         
-         if (this.x - radius > 600) {
+         if (this.x - radius > midcourt_x) {
             if (this.x + radius > paddle2.x && (this.y + radius < paddle2.y + paddle2.height) && (this.y - radius > paddle2.y )) {  // hitting player paddle
                 this.x_speed = - 3;
                 this.y_speed = -2;
