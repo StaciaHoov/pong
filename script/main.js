@@ -5,6 +5,8 @@
     var context_width = 600;
     var context_x = 325;
     var context_y = 75;
+    var midcourt_x = context_x + context_width/2;
+    var midcourt_y = context_y + context_height/2;
     var player = new Player();
     var computer = new Computer();
     var ball = new Ball(600, 300);
@@ -71,7 +73,7 @@
     
 
     function Player() {
-       this.paddle =  new Paddle(850, 265, 10, 70);
+       this.paddle =  new Paddle(865, 240, 10, 70);
     };
     
     Player.prototype.render = function() {
@@ -92,7 +94,7 @@
     };
     
     function Computer() {
-        this.paddle = new Paddle(350, 265, 10, 70);
+        this.paddle = new Paddle(375, 240, 10, 70);
     };
     
     Computer.prototype.render = function() {
@@ -141,10 +143,10 @@
             this.y_speed = - this.y_speed;
         }
         
-        if (this.x < 300) {  // player scores
-            this.x = 600;
-            this.y = 300;
-            this.x_speed = 2 + Math.random();
+        if (this.x < context_x) {  // player scores
+            this.x = midcourt_x;
+            this.y = midcourt_y;
+            this.x_speed = -2 + Math.random();
             this.y_speed = 1 + Math.random();
             playerScore ++;
             document.getElementById("playerScore").innerHTML = playerScore;
@@ -158,10 +160,10 @@
             }
         }
         
-        if (this.x > 900) { // computer scores
-            this.x = 600;
-            this.y = 300;
-            this.x_speed = -2 + Math.random();
+        if (this.x > context_x + context_width) { // computer scores
+            this.x = midcourt_x;
+            this.y = midcourt_y;
+            this.x_speed = 2 + Math.random();
             this.y_speed = 1 + Math.random();
             computerScore ++;
             document.getElementById("computerScore").innerHTML = computerScore;
@@ -170,6 +172,8 @@
                 document.getElementById("computer-wins").style.display = "block";
                 playerScore = 0;
                 computerScore = 0;
+                this.x_speed = 0;
+                this.y_speed = 0;
                 document.getElementById("playerScore").innerHTML = playerScore;
                 document.getElementById("computerScore").innerHTML = playerScore;
             }
