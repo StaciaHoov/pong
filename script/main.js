@@ -36,6 +36,10 @@
         player.update();
         ball.update(computer.paddle, player.paddle);
     }     
+    
+    var restart_game = function() {
+        location.reload;
+    }
         
     function step() { //
         update();
@@ -174,7 +178,7 @@
             computerScore ++;
             document.getElementById("computerScore").innerHTML = computerScore;
             
-            if (computerScore >= 11) {
+            if (computerScore >= 2) {
                 document.getElementById("computer-wins").style.display = "block";
                 playerScore = 0;
                 computerScore = 0;
@@ -213,5 +217,6 @@
     });
     
     window.onload = step();
+
     
 })(); 

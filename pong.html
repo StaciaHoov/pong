@@ -21,8 +21,16 @@
             <canvas id="court-container" width="1250" height="500"></canvas>
         </div>
         <div id="winner">
-            <h2 id="computer-wins">Game Over! <br>The Computer Wins!</h2>
-            <h2 id="player-wins">Game Over! <br>You WIN! </h2>
+            <div id="computer-wins">
+                <h2>Game Over - The Computer Wins!</h2>
+                <input type="button" value="Play Again" onClick="window.location.reload()">
+            </div>
+            
+            <div id="player-wins">
+                <h2>Game Over - You WIN! </h2>
+                <input type="button" value="Play Again" onClick="restart_game()">
+            </div>
+            
         </div> 
         
         

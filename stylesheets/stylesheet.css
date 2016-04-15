@@ -50,15 +50,27 @@ body {
     display: none;
     color: red;
     font-family: 'Bangers', cursive;
-    font-size: 55px;
+    font-size: 35px;
     letter-spacing: 3px;
 }
 
+h2 {
+     margin: 15px auto;
+ }
+ 
 #player-wins {
     text-align: center;
     display: none;
     color: red;
     font-family: 'Bangers', cursive;
-    font-size: 55px;
+    font-size: 35px;
     letter-spacing: 3px;
+}
+
+input {
+    border:  2px solid gray;
+    font-family: Geneva, sans-serif;
+    font-size:  20px;
+    cursor: pointer;
+    color: black;
 }
