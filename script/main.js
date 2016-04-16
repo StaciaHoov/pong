@@ -178,7 +178,7 @@
             computerScore ++;
             document.getElementById("computerScore").innerHTML = computerScore;
             
-            if (computerScore >= 2) {
+            if (computerScore >= 11) {
                 document.getElementById("computer-wins").style.display = "block";
                 playerScore = 0;
                 computerScore = 0;
